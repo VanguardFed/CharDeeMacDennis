@@ -44,6 +44,18 @@ class Card:
         print "Category:",self.cat
         print "Content:",self.con
 
+    #stores all parts of a card into an array and prints it to a file
+    def save(self):
+        tmp_strg=[]
+        tmp_strg.append(self.aut)
+        tmp_strg.append(self.lev)
+        tmp_strg.append(self.cat)
+        tmp_strg.append(self.con)
+        tmp_strg.append(self.tag)
+        deck=open("deck.cards","w")
+        deck.write(str(tmp_strg)+'\n')
+        deck.close()
+
 class Team:
 
     #sets up a card with given variables
@@ -54,5 +66,6 @@ class Team:
 
 
 # TEST CALLS
-test=Card("dev",0,"test","null","N/A")
+test=Card("dev",0,"test","null",["N/A","test","nonvalid"])
 test.display()
+test.save()
