@@ -12,7 +12,7 @@
 #   [X] Card class
 #   [X] Barebones card display function
 #   [ ] Card storage system (PRIORITY)
-#       [ ] Card save function (PRIORITY)
+#       [X] Card save function (PRIORITY)
 #       [ ] Card load function (PRIORITY)
 #   [ ] Card submission function (user input)
 #   [X] Team class
@@ -85,8 +85,8 @@ class Team:
 ##        print "Error: No cards stored"
 
 # TEST CALLS
-test=Card("dev",0,"test","null",["N/A","test","nonvalid1"])
-test2=Card("dev",0,"test","null",["N/A","save test","nonvalid2"])
-test.display()
-test.save()
-test2.save()
+##test=Card("dev",0,"test","null",["N/A","test","nonvalid1"])
+##test2=Card("dev",0,"test","null",["N/A","save test","nonvalid2"])
+##test.display()
+##test.save()
+##test2.save()
