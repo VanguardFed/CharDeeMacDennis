@@ -52,9 +52,16 @@ class Card:
         tmp_strg.append(self.cat)
         tmp_strg.append(self.con)
         tmp_strg.append(self.tag)
-        deck=open("deck.cards","w")
-        deck.write(str(tmp_strg)+'\n')
-        deck.close()
+        try:
+            deck_old=open("deck.cards","r")
+            tmp_deck=deck_old.read()
+            deck_new=open("deck.cards","w")
+            deck_new.write(tmp_deck+str(tmp_strg)+'\n')
+            deck_new.close()
+        except:
+            deck_new=open("deck.cards","w")
+            deck_new.write(str(tmp_strg)+'\n')
+            deck_new.close()
 
 class Team:
 
@@ -64,8 +71,22 @@ class Team:
         self.pnt=point
         self.mem=members
 
+        
+##def load():
+##    try:
+##        deck=open("deck.cards","r")
+##        i=0
+##        for line in deck:
+##            stack=[]
+##            stack.append(deck.readline())
+##            i+=1
+##        return stack
+##    except:
+##        print "Error: No cards stored"
 
 # TEST CALLS
-test=Card("dev",0,"test","null",["N/A","test","nonvalid"])
+test=Card("dev",0,"test","null",["N/A","test","nonvalid1"])
+test2=Card("dev",0,"test","null",["N/A","save test","nonvalid2"])
 test.display()
 test.save()
+test2.save()
