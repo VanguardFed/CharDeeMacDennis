@@ -9,18 +9,29 @@
 #------------------------------------------------------------#
 
 # TO-DO:
-#   [X] Card class
-#   [X] Barebones card display function
-#   [ ] Card storage system (PRIORITY)
-#       [X] Card save function (PRIORITY)
-#       [ ] Card load function (PRIORITY)
-#   [ ] Card submission function (user input)
-#   [X] Team class
-#   [ ] Team creation function (user input)
-#   [?] Team storage system
-#   [?] Team editing system
-#   [ ] Game set-up function (utilizing card storage system and team creation
-
+'''
+    [X] Card class
+    [X] Barebones card display function
+    [X] Card storage system
+        [X] Card save function
+        [X] Card load function
+    [ ] Card submission function (user input) (PRIORITY)
+        [X] Creates and saves valid Card object
+        [ ] Ensures valid input
+       
+    [X] Team class
+    [ ] Team creation function (user input) (PRIORITY)
+    [?] Team storage system
+    [?] Team editing system
+    [ ] Game function
+        [X] Loads saved deck
+        [ ] Sets up teams
+        [ ] Randomizes starting team, keeps turn order in the order that they were submitted
+        [ ] Turn loop
+            [ ] Draws card for current team at current team level
+            [ ] Awards or does not award card to teams
+            [ ] displays current scores
+'''
 class Card:
 
     #sets up a card with given variables
@@ -43,6 +54,9 @@ class Card:
         print "Level:",self.lev
         print "Category:",self.cat
         print "Content:",self.con
+
+    def play(self):
+        self.display()
 
     #stores all parts of a card into an array and prints it to a file
     def save(self):
@@ -72,21 +86,41 @@ class Team:
         self.mem=members
 
         
-##def load():
-##    try:
-##        deck=open("deck.cards","r")
-##        i=0
-##        for line in deck:
-##            stack=[]
-##            stack.append(deck.readline())
-##            i+=1
-##        return stack
-##    except:
-##        print "Error: No cards stored"
+def load():
+    try:
+        deck=open("deck.cards","r")
+        stack=[]
+        for line in deck:
+            stack.append(eval(line))
+        return stack
+    except:
+        print "Error: No cards stored"
 
-# TEST CALLS
-##test=Card("dev",0,"test","null",["N/A","test","nonvalid1"])
-##test2=Card("dev",0,"test","null",["N/A","save test","nonvalid2"])
-##test.display()
-##test.save()
-##test2.save()
+def create_card():
+    submitting=True
+    tags=[]
+    tmp_aut=raw_input("Who is the author of this card?: ")
+    tmp_lev=input("What is the level of this card?: ")
+    tmp_cat=raw_input("What category is this card in?: ")
+    tmp_con=raw_input("What does this card say?: ")
+    while submitting:
+        print "Adding 'q' as a tag will quit the submission sequence."
+        tmp_tag=raw_input("Add a tag to the card: ")
+        if tmp_tag.lower()=='q':
+            submitting=False
+        else:
+            tags.append(tmp_tag)
+    tmpCard=Card(tmp_aut,tmp_lev,tmp_cat,tmp_con,tags)
+    tmpCard.save()
+        
+def game():
+    deck=load()
+    if raw_input("Welcome to Chardee MacDennis, press enter to continue. ")=='submit':
+        submitting=True
+        while submitting:
+            create_card()
+            if raw_input("Do you want to submit another card? (y/n): ").lower()!='y':
+                submitting=False
+    else:
+        print "Game sequence here"
+game()
